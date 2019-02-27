@@ -10,7 +10,6 @@ class DevelopConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root@localhost/jobplus?charset=utf8'
 
 
-
 class TestConfig(BaseConfig):
     pass
 
