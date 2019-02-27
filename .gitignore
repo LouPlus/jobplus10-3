@@ -1,7 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*/__pycache__/
 *.py[cod]
 *$py.class
+
 
 # IDE config
 .idea/
@@ -10,6 +12,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+Pipfile.lock
 .Python
 build/
 develop-eggs/
@@ -117,3 +120,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# mac os files
+.DS_Store
