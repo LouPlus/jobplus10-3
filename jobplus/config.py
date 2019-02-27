@@ -7,7 +7,8 @@ class BaseConfig:
 
 
 class DevelopConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql://root@localhost/jobplus?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root@localhost/jobplus?charset=utf8'
+
 
 
 class TestConfig(BaseConfig):

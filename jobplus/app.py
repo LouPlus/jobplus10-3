@@ -2,13 +2,14 @@ from flask import Flask
 from flask_migrate import Migrate
 
 from .config import configs
-from .handlers import front
 from jobplus.models import db
 
 
 def register_blueprints(app):
-    from .handlers import front
+    from .handlers import front, user, company
     app.register_blueprint(front)
+    app.register_blueprint(user)
+    app.register_blueprint(company)
 
 
 def create_app(config):

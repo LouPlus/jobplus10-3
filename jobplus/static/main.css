@@ -85,6 +85,67 @@
   color: #333;
 }
 
+a.list_more {
+  display: block;
+  width: 400px;
+  height: 45px;
+  line-height: 45px;
+  margin: 16px auto;
+  background: #fff;
+  border: 1px solid #0069d9;
+  font-size: 16px;
+  color: #0069d9;
+  text-align: center;
+
+}
+
+div.ct {
+  text-align: center;
+}
+
+p.company-name {
+  height: 22px;
+  margin-top: 13px;
+  font-size: 16px;
+  color: #333;
+}
+
+p.slogan {
+  margin-top: 5px;
+  color: #555;
+}
+
+div.container-profie {
+  width: 100%;
+  height: 1200px;
+  background: #343a40;
+  padding-top: 150px;
+
+}
+
+div.profile {
+  margin: 10px auto 0;
+  max-width: 580px;
+  background: #fff;
+}
+.gray {
+  color: #9d9d9d;
+}
+
+a.profile {
+  cursor: pointer;
+}
+
+form.basic {
+  position: relative;
+  width: 500px;
+  margin: auto;
+  padding: 36px 50px 20px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+
 footer {
   padding-top: 3rem;
   padding-bottom: 3rem;
