@@ -77,10 +77,8 @@ class User(Base, UserMixin):
 class Company(Base):
     __tablename__ = 'company'
 
-
     id = db.Column(db.Integer,  db.ForeignKey('user.id'),primary_key=True)
     user = db.relationship('User', uselist=False, backref=db.backref('company',uselist=False))
-
     name = db.Column(db.String(64), nullable=False, index=True, unique=True, comment='公司名')
     slogan = db.Column(db.String(24), nullable=False, index=True, unique=True, comment='slogan')
     logo = db.Column(db.String(64), nullable=False)
@@ -96,8 +94,6 @@ class Company(Base):
     trade = db.Column(db.String(32), comment='行业')
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
-
-    
 
     def __repr__(self):
         return '<Company {}>'.format(self.name)

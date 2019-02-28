@@ -11,7 +11,8 @@ front = Blueprint('front', __name__)
 def index():
     return render_template('index.html')
 
-@front.route('/login', methods = ['GET', 'POST'])
+
+@front.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -24,6 +25,7 @@ def login():
             next = 'company.profile'
         return redirect(url_for(next))
     return render_template('login.html',form=form)
+
 
 @front.route('/userregister', methods=['GET', 'POST'])
 def userregister():
@@ -47,6 +49,7 @@ def companyregister():
         flash('注册成功，请登录！','success')
         return redirect(url_for('.login'))
     return render_template('companyregister.html',form=form)
+
 
 @front.route('/logout')
 @login_required

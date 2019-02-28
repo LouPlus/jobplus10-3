@@ -21,6 +21,7 @@ def create_app(config):
 
     return app
 
+
 def register_extensions(app):
     db.init_app(app)
     Migrate(app, db)
