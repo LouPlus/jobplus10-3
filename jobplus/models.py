@@ -48,8 +48,6 @@ class User(Base):
     def check_password(self, password):
         return check_password_hash(self._password, password)
 
-    
-
 
 class Job(Base):
     __tablename__ = 'job'
@@ -64,10 +62,10 @@ class Job(Base):
     degree = db.Column(db.String(32))
     description = db.Column(db.String(1024))
 
+
 class Company(Base):
     __tablename__ = 'company'
 
-    
     id = db.Column(db.Integer, primary_key=True)
     short_description = db.Column(db.String(64))
     full_description = db.Column(db.String(256))

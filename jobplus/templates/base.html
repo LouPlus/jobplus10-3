@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JobPlus</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' href="{{ url_for('static', filename='main.css') }}">
+
+</head>
+<body>
+
+    {% block nav %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>JOBPlus</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">职位</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">公司</a>
+                </li>
+              </ul>
+              <form class="form-inline">
+                <input class="form-control-sm mr-sm-2" type="text" placeholder="搜索你想查找的职位" aria-label="Search">
+                <button class="btn btn-info btn-sm mr-sm-2" type="submit">用户注册</button>
+                <button class="btn btn-info btn-sm mr-sm-2" type="submit">企业注册</button>
+                <button class="btn btn-success btn-sm mr-sm-2" type="submit">登录</button>
+              </form>
+            </div>
+        </div>>
+      </nav>
+    {% endblock %}
+
+    <main role="main">
+        {% block jumbotron %}
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">找工作，上JOBPlus</h1>
+                <p>JOBPlus是权威的互联网行业招聘平台。提供全国真实可靠的互联网招聘信息。工资不面议。找工作、要招聘、搜人才就来JOBPlus。互联网行业找工作首选JOBPlus</p><p>
+                <a href="#" class="btn btn-primary my-2">点击了解 »</a>
+                </p>
+            </div>
+        </section>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer class="text-muted">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Back to top</a>
+            </p>
+            <p>&copy; Copyright 2017 by <a href="http://www.shiyanlou.com/">shiyalou</a>.</p>
+            <p>New to 上JOBPlus? <a href="../../">Visit the homepage</a> or read our <a href="#">getting started guide</a>.</p>
+      </div>
+    </footer>
+    {% endblock %}
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

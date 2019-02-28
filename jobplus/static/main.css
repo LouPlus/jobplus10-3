@@ -1,0 +1,97 @@
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.fr {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+.position {
+  color: #333;
+  max-width: 145px;
+}
+
+.pub-time {
+  color: #999;
+  font-size: 14px;
+}
+
+.salary {
+  font-size: 16px;
+  color: #fa6041;
+}
+
+
+.card-info {
+  height: 30px;
+  line-height: 30px;
+  color: #777;
+}
+
+.card-info span {
+  font-size: 14px;
+}
+
+.labels {
+  margin-top: 5px;
+}
+
+.card-btm {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed #E0E0E0;
+}
+
+.btm-right {
+  margin-left: 54px;
+}
+
+.cp-name {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.cp-name a {
+  color: #333;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
