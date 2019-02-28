@@ -17,7 +17,14 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user, form.remember_me.data)
-        return redirect(url_for('.index'))
+        next = '.index'
+        if user.role == User.ROLE_USER:
+            next = 'user.profile'
+        elif user.role == User.ROLE_COMPANY:
+            next = 'company.profile'
+        elif user.role == User.ROLE_ADMIN:
+            next = 'admin.index'
+        return redirect(url_for(next))
     return render_template('login.html',form=form)
 
 @front.route('/userregister', methods=['GET', 'POST'])

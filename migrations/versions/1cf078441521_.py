@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9b9e2efd08fa
+Revision ID: 1cf078441521
 Revises: 
-Create Date: 2019-02-28 15:35:42.453150
+Create Date: 2019-02-28 16:38:02.768213
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9b9e2efd08fa'
+revision = '1cf078441521'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,7 +26,7 @@ def upgrade():
     sa.Column('avatar', sa.String(length=255), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('password', sa.String(length=255), nullable=False),
-    sa.Column('phone', sa.String(length=20), nullable=False),
+    sa.Column('phone', sa.String(length=20), nullable=True),
     sa.Column('work_years', sa.SmallInteger(), nullable=True),
     sa.Column('role', sa.Integer(), nullable=True),
     sa.Column('resume_url', sa.String(length=64), nullable=True),
@@ -54,8 +54,7 @@ def upgrade():
     sa.Column('trade', sa.String(length=32), nullable=True, comment='行业'),
     sa.Column('funding', sa.String(length=32), nullable=True, comment='融资阶段'),
     sa.Column('city', sa.String(length=32), nullable=True, comment='所在城市'),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_company_name'), 'company', ['name'], unique=True)
