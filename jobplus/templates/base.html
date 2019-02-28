@@ -61,10 +61,6 @@
     {% endblock %}
     
 
-    <div class="container">
-        {% block head %}{% endblock %}
-    </div>
-
 
 
     <div class="container">
@@ -78,6 +74,8 @@
         {% endfor %}
         {% endif %}
     {% endwith %}
+
+    {% block head %}{% endblock %}
 
     {% block body %}{% endblock %}
 
