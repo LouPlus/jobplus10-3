@@ -20,5 +20,5 @@ LouPlus Team 3 https://www.shiyanlou.com/louplus/python
 pipenv install
 `
 
-若您没有pipenv，使用`pip install pipenv`即可
+若本地没有python3.7，则修改pipfile文件将版本依赖改成自己本地的python3版本即可
 
