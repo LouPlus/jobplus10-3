@@ -38,9 +38,9 @@ class User(Base, UserMixin):
     avatar = db.Column(db.String(255), nullable=False, default='avatar.png')
     email = db.Column(db.String(255), unique=True, nullable=False)
     _password = db.Column('password', db.String(255), nullable=False)
-    phone = db.Column(db.String(20), unique=True)
-    work_years = db.Column(db.SmallInteger, default=ROLE_USER)
-    role = db.Column(db.Integer)
+    phone = db.Column(db.String(11), unique=True)
+    role = db.Column(db.SmallInteger, default=ROLE_USER)
+    work_years = db.Column(db.SmallInteger)
     resume_url = db.Column(db.String(64))
 
     # 关联简历表，结构化简历，以后做
@@ -63,11 +63,15 @@ class User(Base, UserMixin):
 
     @property
     def is_admin(self):
-        return self.ROLE_ADMIN
+        return self.role == self.ROLE_ADMIN
 
     @property
     def is_company(self):
-        return self.ROLE_COMPANY
+        return self.role == self.ROLE_COMPANY
+
+    @property
+    def is_user(self):
+        return self.role == self.ROLE_USER
 
 
 class Company(Base):
