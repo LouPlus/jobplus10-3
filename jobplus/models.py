@@ -34,12 +34,11 @@ class User(Base, UserMixin):
     ROLE_ADMIN = 30
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True, index=True, nullable=False, comment='用户名称')
-    avatar = db.Column(db.String(256), nullable=False, default='avatar.png')
-    email = db.Column(db.String(256), unique=True, nullable=False)
-    _password = db.Column('password', db.String(256), nullable=False)
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
-    phone = db.Column(db.String(20), unique=True, nullable=False)
+    name = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    avatar = db.Column(db.String(255), nullable=False, default='avatar.png')
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    _password = db.Column('password', db.String(255), nullable=False)
+    phone = db.Column(db.String(20), unique=True)
     work_years = db.Column(db.SmallInteger, default=ROLE_USER)
     role = db.Column(db.Integer)
     resume_url = db.Column(db.String(64))
@@ -49,7 +48,7 @@ class User(Base, UserMixin):
     collect_jobs = db.relation('Job', secondary=user_job)
 
     def __repr__(self):
-        return f'<User:{self.name}>'
+        return '<User:{}>'.format(self.name)
 
     @property
     def password(self):
@@ -82,20 +81,20 @@ class Company(Base):
     contact = db.Column(db.String(24), nullable=False, comment='联系方式')
     location = db.Column(db.String(24), nullable=False, comment='公司地址')
     short_description = db.Column(db.String(10), comment='一句话描述')
-    full_description = db.Column(db.String(256), comment='关于我们，公司详情描述')
+    full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
-    team_des = db.Column(db.String(256), comment='团队介绍')
-    welfare = db.Column(db.String(256), comment='公司福利')
+    team_des = db.Column(db.String(255), comment='团队介绍')
+    welfare = db.Column(db.String(255), comment='公司福利')
     trade = db.Column(db.String(32), comment='行业')
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
-    user = db.relation('User', uselist=False, backref=db.backref('company', uselist=False))
+    user = db.relationship('User', uselist=False, backref='company')
 
     def __repr__(self):
-        return f'<Company {self.name}>'
+        return '<Company {}>'.format(self.name)
 
 
 class Job(Base):
@@ -132,4 +131,4 @@ class Delivery(Base):
     job_id = db.Column(db.Integer, db.ForeignKey('job.id', ondelete='SET NULL'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
     status = db.Column(db.SmallInteger, default=STATUS_WAITING, comment='投递状态')
-    location = db.Column(db.String(256), comment='企业回应')
+    location = db.Column(db.String(255), comment='企业回应')
