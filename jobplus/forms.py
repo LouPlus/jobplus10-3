@@ -25,7 +25,7 @@ class RegisterForm(FlaskForm):
     name = StringField('用户名', validators=[DataRequired()])
     email = StringField('邮箱', validators=[DataRequired(), Email()])
     password = PasswordField('密码',validators=[DataRequired(),Length(6,24)])
-    repeat_password = PasswordField('重复密码',validators=[DataRequired(),Length(6,24)])
+    repeat_password = PasswordField('重复密码',validators=[DataRequired(),EqualTo('password')])
     submit = SubmitField('提交')
     
 

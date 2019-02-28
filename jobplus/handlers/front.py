@@ -17,7 +17,12 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user, form.remember_me.data)
-        return redirect(url_for('.index'))
+        next = 'user.profile'
+        if user.is_admin:
+            next = 'admin.index'
+        elif user.is_company:
+            next = 'company.profile'
+        return redirect(url_for(next))
     return render_template('login.html',form=form)
 
 @front.route('/userregister', methods=['GET', 'POST'])
@@ -33,10 +38,12 @@ def userregister():
 @front.route('/companyregister', methods=['GET', 'POST'])
 def companyregister():
     form = RegisterForm()
-    form.name.lable = u'企业名称'
+    form.name.label = u'企业名称'
     if form.validate_on_submit():
         user= form.create_user()
         user.role = User.ROLE_COMPANY
+        db.session.add(user)
+        db.session.commit()
         flash('注册成功，请登录！','success')
         return redirect(url_for('.login'))
     return render_template('companyregister.html',form=form)

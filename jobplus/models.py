@@ -38,9 +38,9 @@ class User(Base, UserMixin):
     avatar = db.Column(db.String(255), nullable=False, default='avatar.png')
     email = db.Column(db.String(255), unique=True, nullable=False)
     _password = db.Column('password', db.String(255), nullable=False)
-    phone = db.Column(db.String(20), unique=True)
-    work_years = db.Column(db.SmallInteger, default=ROLE_USER)
-    role = db.Column(db.Integer)
+    phone = db.Column(db.String(11), unique=True)
+    role = db.Column(db.SmallInteger, default=ROLE_USER)
+    work_years = db.Column(db.SmallInteger)
     resume_url = db.Column(db.String(64))
 
     # 关联简历表，结构化简历，以后做
@@ -63,17 +63,24 @@ class User(Base, UserMixin):
 
     @property
     def is_admin(self):
-        return self.ROLE_ADMIN
+        return self.role == self.ROLE_ADMIN
 
     @property
     def is_company(self):
-        return self.ROLE_COMPANY
+        return self.role == self.ROLE_COMPANY
+
+    @property
+    def is_user(self):
+        return self.role == self.ROLE_USER
 
 
 class Company(Base):
     __tablename__ = 'company'
 
-    id = db.Column(db.Integer, primary_key=True)
+
+    id = db.Column(db.Integer,  db.ForeignKey('user.id'),primary_key=True)
+    user = db.relationship('User', uselist=False, backref=db.backref('company',uselist=False))
+
     name = db.Column(db.String(64), nullable=False, index=True, unique=True, comment='公司名')
     slogan = db.Column(db.String(24), nullable=False, index=True, unique=True, comment='slogan')
     logo = db.Column(db.String(64), nullable=False)
@@ -90,8 +97,7 @@ class Company(Base):
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
-    user = db.relationship('User', uselist=False, backref='company')
+    
 
     def __repr__(self):
         return '<Company {}>'.format(self.name)
