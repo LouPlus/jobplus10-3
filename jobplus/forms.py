@@ -26,6 +26,8 @@ class RegisterForm(FlaskForm):
     email = StringField('邮箱', validators=[DataRequired(), Email()])
     password = PasswordField('密码',validators=[DataRequired(),Length(6,24)])
     repeat_password = PasswordField('重复密码',validators=[DataRequired(),Length(6,24)])
+    submit = SubmitField('提交')
+    
 
     def validate_name(self, field):
         if User.query.filter_by(name=field.data).first():

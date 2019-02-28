@@ -92,7 +92,7 @@ class Company(Base):
     city = db.Column(db.String(32), comment='所在城市')
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
-    user = db.relation('User', uselist=False, backref=db.backref('company', uselist=False))
+    user = db.relationship('User', uselist=False, backref=db.backref('company', uselist=False))
 
     def __repr__(self):
         return f'<Company {self.name}>'
