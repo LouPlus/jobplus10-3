@@ -1,3 +1,4 @@
+from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
@@ -104,6 +105,10 @@ class Company(Base):
     def __repr__(self):
         return '<Company {}>'.format(self.name)
 
+    @property
+    def url(self):
+        return url_for('company.detail', company_id=self.id)
+
 
 class Job(Base):
     __tablename__ = 'job'
@@ -123,6 +128,15 @@ class Job(Base):
     view_count = db.Column(db.Integer, default=0, comment='该岗位浏览数')
 
     description = db.Column(db.String(1024))
+
+    @property
+    def url(self):
+        return url_for('job.detail', job_id=self.id)
+
+    @property
+    def update_time(self):
+        day = Base.updated_at.data - datetime.utcnow
+        return day
 
 
 class Delivery(Base):

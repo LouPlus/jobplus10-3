@@ -21,3 +21,6 @@ def profile():
         return redirect(url_for('front.index'))
     return render_template('company/profile.html', form=form)
 
+@company.route('/<int:company_id>')
+def detail(company_id):
+    return 'company detail: {}'.format(company_id)

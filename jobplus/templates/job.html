@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import render_pagination %}
+
+{% block body %}
+<div class='row'>
+    {% for job in pagination.items %}
+    <div class="col-sm-6 col-md-4 job-item">
+        <a href="{{ job.url }}" class="job-name">{{ job.name }}</a>
+        <span class="job-location">[{{ job.location }}]</span>
+
+        <div class="job-require">
+            <strong class='text-green'>
+                {{job.salary_min}}K-{{job.salary_max}}K
+            </strong>
+            经验
+            {% if job.experience_requirement %}
+                {{job.experience_requirement}}年/
+            {% else %}
+                不限/
+            {% endif %}
+            学历
+            {%if job.degree_requirement %}
+                {{job.degree_requirement}}/
+            {% else %}
+                不限/
+            {% endif %}
+            {% if job.is_fulltime %}
+                全职
+            {% else %}
+                兼职
+            {% endif %}
+        </div>
+        <p class="job-company">
+            <a href="{{job.company.url}}">{{ job.company.name }}</a>
+            {{ job.update_time }}
+        </p>
+    </div>
+    {% endfor %}
+    
+</div>
+
+{% endblock %}
+

@@ -9,10 +9,11 @@ from jobplus.models import db, User
 
 
 def register_blueprints(app):
-    from .handlers import front, user, company
+    from .handlers import front, user, company, job
     app.register_blueprint(front)
     app.register_blueprint(user)
     app.register_blueprint(company)
+    app.register_blueprint(job)
 
 
 def create_app(config):
