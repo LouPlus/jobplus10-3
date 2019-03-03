@@ -17,6 +17,7 @@ faker = "*"
 flask-wtf = "*"
 wtforms = "*"
 flask-uploads = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
