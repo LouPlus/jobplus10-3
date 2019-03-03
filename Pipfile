@@ -10,11 +10,10 @@ flask = "*"
 flask-sqlalchemy = ""
 flask-migrate = "*"
 flask-login = "*"
-mysqldb = "*"
-mysql-python = "*"
 pymysql = "*"
 flask-wtf = "*"
 wtforms = "*"
+flask-uploads = "*"
 
 [requires]
 python_version = "3.7"

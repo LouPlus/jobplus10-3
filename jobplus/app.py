@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_uploads import configure_uploads, patch_request_class
 
+from jobplus.forms import rfile, clogo
 from .config import configs
 from jobplus.models import db, User
 
@@ -18,14 +20,13 @@ def create_app(config):
     app.config.from_object(configs.get(config))
     register_extensions(app)
     register_blueprints(app)
-
     return app
 
 
 def register_extensions(app):
     db.init_app(app)
     Migrate(app, db)
-
+    configure_uploads(app, (rfile, clogo))
     login_manager = LoginManager()
     login_manager.init_app(app)
 

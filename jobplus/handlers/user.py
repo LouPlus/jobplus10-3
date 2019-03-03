@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 
 from jobplus.forms import UserProfilesForm
@@ -14,6 +14,6 @@ def profile():
         form.updated_profile(current_user)
         flash('个人信息更新成功', 'success')
         return redirect(url_for('front.index'))
-
     return render_template('user/profile.html', form=form)
+
 
