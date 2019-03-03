@@ -10,15 +10,23 @@ class BaseConfig:
     MAX_CONTENT_LENGTH = 1024 * 1024 * 8
 
 
+# 本地开发环境
 class DevelopConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root@localhost/jobplus?charset=utf8'
 
 
+# Test环境
 class TestConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Zk6RTBjGNK@150.109.62.40/jobplus?charset=utf8'
+
+
+# 线上生产环境
+class ProdConfig(BaseConfig):
     pass
 
 
 configs = {
     'dev': DevelopConfig,
-    'test': TestConfig
+    'test': TestConfig,
+    'Prod': ProdConfig
 }
