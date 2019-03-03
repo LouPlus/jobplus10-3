@@ -1,105 +1,77 @@
 {% extends "base.html" %}
-{% block nav %}
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container d-flex justify-content-between">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                <strong>JOBPlus</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">首页 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">职位</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">公司</a>
-                </li>
-              </ul>
-              <ul class="navbar-nav nav-bar-right">
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img src="../static/imgs/tx.jpg" width="40" height="40" style="border-radius: 50%" alt="">
-                          <span id="username" class="gray">腾讯股份有限公司</span>
-                          <span class="caret gray"></span>
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="dropdown06">
-                          <a class="dropdown-item" href="#">我的主页</a>
-                          <a class="dropdown-item" href="#">退出登录</a>
-                      </div>
-                  </li>
-              </ul>
-            </div>
-        </div>>
-      </nav>
-{% endblock %}
+{% from "macros.html" import render_form %}
+
+
 {% block body %}
 <div class="container-profie">
     <div class="profile">
-    <form class="needs-validation basic" novalidate="">
-        <h4>编辑企业信息</h4>
-            <div class="mb-3 mt-3">
-                <label for="name">企业名称</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="name" placeholder="请输入您的企业名称" value="腾讯股份有限公司" required="">
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <label for="email">邮箱</label>
-                <input type="email" class="form-control" id="email" placeholder="格式为you@example.com" value="jaymie9019@tencent.com">
-                <div class="invalid-feedback">
-                    请输入一个正确的邮箱
-                </div>
-            </div>
-            <div class="mb-4">
-                <label for="phone">手机号</label>
-                <input type="text" class="form-control" id="phone" placeholder="请输入您的手机号" required="">
-            </div>
-            <div class="mb-3">
-                <label for="passwd">密码<span class="text-muted">(不填写保持不变)</span></label>
-                <input type="text" class="form-control" id="passwd" placeholder="">
-            </div>
-
-            <div class="mb-3">
-                <label for="slogan">slogan</label>
-                <input type="text" class="form-control" id="slogan" placeholder="" required="">
-            </div>
-
-            <div class="mb-3">
-                <label for="address">公司地址</label>
-                <input type="text" class="form-control" id="address" placeholder="" required="">
-            </div>
-
-            <div class="mb-3">
-                <label for="des">一句话简介</label>
-                <input type="text" class="form-control" id="des" placeholder="" required="">
-            </div>
-
-            <div class="mb-3">
-                <label for="info">公司详情</label>
-                <textarea type="text" class="form-control" id="info" placeholder="" required=""></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="logo">公司LOGO
-                    <span class="text-muted">(建议尺寸为80*80的jpg，png文件)</span>
-                </label>
-                <input type="file" class="form-control-file" id="logo">
-            </div>
-
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">立即提交</button>
-          </form>
-
+    {{ render_form(form, url_for('company.profile'), '编辑企业信息')}}
+    </div>
 </div>
-</div>
+
+<!--<div class="container-profie">-->
+    <!--<div class="profile">-->
+    <!--<form class="needs-validation basic" novalidate="">-->
+        <!--<h4>编辑企业信息</h4>-->
+            <!--<div class="mb-3 mt-3">-->
+                <!--<label for="name">企业名称</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input type="text" class="form-control" id="name" placeholder="请输入您的企业名称" value="腾讯股份有限公司" required="">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="mb-4">-->
+                <!--<label for="email">邮箱</label>-->
+                <!--<input type="email" class="form-control" id="email" placeholder="格式为you@example.com" value="jaymie9019@tencent.com">-->
+                <!--<div class="invalid-feedback">-->
+                    <!--请输入一个正确的邮箱-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="mb-4">-->
+                <!--<label for="phone">手机号</label>-->
+                <!--<input type="text" class="form-control" id="phone" placeholder="请输入您的手机号" required="">-->
+            <!--</div>-->
+            <!--<div class="mb-3">-->
+                <!--<label for="passwd">密码<span class="text-muted">(不填写保持不变)</span></label>-->
+                <!--<input type="text" class="form-control" id="passwd" placeholder="">-->
+            <!--</div>-->
+
+            <!--<div class="mb-3">-->
+                <!--<label for="slogan">slogan</label>-->
+                <!--<input type="text" class="form-control" id="slogan" placeholder="" required="">-->
+            <!--</div>-->
+
+            <!--<div class="mb-3">-->
+                <!--<label for="address">公司地址</label>-->
+                <!--<input type="text" class="form-control" id="address" placeholder="" required="">-->
+            <!--</div>-->
+
+            <!--<div class="mb-3">-->
+                <!--<label for="des">一句话简介</label>-->
+                <!--<input type="text" class="form-control" id="des" placeholder="" required="">-->
+            <!--</div>-->
+
+            <!--<div class="mb-3">-->
+                <!--<label for="info">公司详情</label>-->
+                <!--<textarea type="text" class="form-control" id="info" placeholder="" required=""></textarea>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+                <!--<label for="logo">公司LOGO-->
+                    <!--<span class="text-muted">(建议尺寸为80*80的jpg，png文件)</span>-->
+                <!--</label>-->
+                <!--<input type="file" class="form-control-file" id="logo">-->
+            <!--</div>-->
+
+            <!--<hr class="mb-4">-->
+            <!--<button class="btn btn-primary btn-lg btn-block" type="submit">立即提交</button>-->
+          <!--</form>-->
+
+<!--</div>-->
+<!--</div>-->
+
 {% endblock %}
 {% block footer %}
 {% endblock %}
+
 
