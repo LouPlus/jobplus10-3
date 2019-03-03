@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_form %}
+
+
+{% block body %}
+<div class="container-profie">
+    <div class="profile">
+    {{ render_form(form, url_for('user.profile'), '请填写基本信息')}}
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+

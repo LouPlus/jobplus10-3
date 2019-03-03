@@ -6,6 +6,11 @@ class BaseConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JOB_PER_PAGE = 15
     COMPANY_PER_PAGE = 15
+    CSRF_ENABLED = True
+    # 上传文件目录
+    UPLOADS_DEFAULT_DEST = 'jobplus/static/'
+    MAX_CONTENT_LENGTH = 1024 * 1024 * 8
+
 
 
 class DevelopConfig(BaseConfig):

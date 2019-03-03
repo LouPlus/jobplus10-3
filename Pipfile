@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.doubanio.com/simple"
 verify_ssl = true
 
 [dev-packages]
@@ -8,14 +8,15 @@ rope = "*"
 
 [packages]
 flask = "*"
-flask-sqlalchemy = "*"
+flask-sqlalchemy = ""
 flask-migrate = "*"
 flask-login = "*"
-mysqldb = "*"
-mysql-python = "*"
 pymysql = "*"
 scrapy = "*"
 faker = "*"
+flask-wtf = "*"
+wtforms = "*"
+flask-uploads = "*"
 
 [requires]
-python_version = "3.5"
+python_version = "3.7"

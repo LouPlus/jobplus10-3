@@ -35,18 +35,22 @@ class User(Base, UserMixin):
     ROLE_ADMIN = 30
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    name = db.Column(db.String(64), unique=True, index=True, nullable=False, comment="用户名，用作登录")
+    real_name = db.Column(db.String(64), comment="姓名")
     avatar = db.Column(db.String(255), nullable=False, default='avatar.png')
     email = db.Column(db.String(255), unique=True, nullable=False)
     _password = db.Column('password', db.String(255), nullable=False)
-    phone = db.Column(db.String(11), unique=True)
+    phone = db.Column(db.String(20), unique=True)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
-    work_years = db.Column(db.SmallInteger)
+    work_years = db.Column(db.SmallInteger, comment="工作年龄")
     resume_url = db.Column(db.String(64))
 
     # 关联简历表，结构化简历，以后做
     # resume = db.relation('Resume', uselist=False)
     collect_jobs = db.relation('Job', secondary=user_job)
+
+    # 企业用户管理的企业详情
+    company_info = db.relationship('Company', uselist=False)
 
     def __repr__(self):
         return '<User:{}>'.format(self.name)
@@ -78,27 +82,25 @@ class User(Base, UserMixin):
 class Company(Base):
     __tablename__ = 'company'
 
-
-    id = db.Column(db.Integer,  db.ForeignKey('user.id'),primary_key=True)
-    user = db.relationship('User', uselist=False, backref=db.backref('company',uselist=False))
-
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, index=True, unique=True, comment='公司名')
     slogan = db.Column(db.String(24), nullable=False, index=True, unique=True, comment='slogan')
-    logo = db.Column(db.String(64), nullable=False)
-    website = db.Column(db.String(64), nullable=False)
-    contact = db.Column(db.String(24), nullable=False, comment='联系方式')
-    location = db.Column(db.String(24), nullable=False, comment='公司地址')
+    logo = db.Column(db.String(64), nullable=False, default='avatar.png')
+    website = db.Column(db.String(64))
+    contact = db.Column(db.String(24), comment='联系方式')
+    location = db.Column(db.String(24), comment='公司地址')
     short_description = db.Column(db.String(10), comment='一句话描述')
     full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
     team_des = db.Column(db.String(255), comment='团队介绍')
-    welfare = db.Column(db.String(255), comment='公司福利')
-    trade = db.Column(db.String(32), comment='行业')
+    welfare = db.Column(db.String(255), comment='公司福利，用多个逗号隔开')
+    trade = db.Column(db.String(32), comment='所处行业')
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
 
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
+    user = db.relationship('User', uselist=False, backref=db.backref('company', uselist=False))
 
     def __repr__(self):
         return '<Company {}>'.format(self.name)
