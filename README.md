@@ -9,6 +9,7 @@ LouPlus Team 3 https://www.shiyanlou.com/louplus/python
 * [Ohki](https://github.com/w215842821)
 * [我的朋友叫垃圾呆](https://github.com/jaymie9019)
 * [temprani](https://github.com/temprani)
+* [LOU3899207479](https://github.com/liuzhijie1)
 
 
 ## 环境依赖
