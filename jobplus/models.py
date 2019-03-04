@@ -138,6 +138,11 @@ class Job(Base):
         day = Base.updated_at.data - datetime.utcnow
         return day
 
+    @property
+    def tag_list(self):
+        #将中文逗号替换为英文的
+        return self.tags.replace('，',',').split(',')
+
 
 class Delivery(Base):
     __tablename__ = 'delivery'
