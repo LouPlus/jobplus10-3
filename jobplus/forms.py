@@ -77,7 +77,7 @@ class UserProfilesForm(FlaskForm):
         user.real_name = self.real_name.data
         user.email = self.email.data
         if self.passwd.data:
-            user.passwd = self.password.data
+            user.password = self.passwd.data
         if self.resume_file.data:
             # 获取文件后缀
             suffix = os.path.splitext(self.resume_file.data.filename)[1]

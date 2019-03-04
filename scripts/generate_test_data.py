@@ -20,7 +20,7 @@ def add_jobs(file):
     
 
 def run():
-    add_jobs('/home/roy/jobplus10-3/datas/jobs.json')
+    add_jobs('datas/jobs.json')
 
     try:
         db.session.commit()
