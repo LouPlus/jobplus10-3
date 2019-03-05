@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 
 from jobplus.forms import CompanyProfileForm
+from jobplus.models import User, Company
 
 company = Blueprint('company', __name__, url_prefix='/company')
 
@@ -20,6 +21,18 @@ def profile():
         flash('企业信息更新成功', 'success')
         return redirect(url_for('front.index'))
     return render_template('company/profile.html', form=form)
+
+
+@company.route('/')
+def index():
+    page = request.args.get('page', 1, type=int)
+    pagination = Company.query.order_by(Company.id).paginate(
+        page=page,
+        per_page=12,
+        error_out=False
+    )
+    return render_template('company/index.html', pagination=pagination)
+
 
 @company.route('/<int:company_id>')
 def detail(company_id):

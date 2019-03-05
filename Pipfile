@@ -8,7 +8,7 @@ rope = "*"
 
 [packages]
 flask = "*"
-flask-sqlalchemy = ""
+flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-login = "*"
 pymysql = "*"

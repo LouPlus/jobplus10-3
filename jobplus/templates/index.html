@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% set active = "index" %}
 
 
 {% block head %}
@@ -194,119 +195,36 @@
             </ul>
             <div class="album py-4 bg-light">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body ct">
-                                <p>
-                                    <a href="#">
-                                        <img src="../static/imgs/qidian.jpg" alt="公司log" width="80" height="80">
-                                    </a>
-                                </p>
-                                <p class="company-name">
-                                    起点学院
-                                </p>
-                                <p class="card-info">
-                                    <span>企业服务，教育</span>
-                                    <span>/</span>
-                                    <span>A轮</span>
-                                </p>
-                                <p class="slogan">
-                                    人人都是产品经理
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body ct">
-                                <p>
-                                    <a href="#">
-                                        <img src="../static/imgs/qidian.jpg" alt="公司log" width="80" height="80">
-                                    </a>
-                                </p>
-                                <p class="company-name">
-                                    起点学院
-                                </p>
-                                <p class="card-info">
-                                    <span>企业服务，教育</span>
-                                    <span>/</span>
-                                    <span>A轮</span>
-                                </p>
-                                <p class="slogan">
-                                    人人都是产品经理
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body ct">
-                                <p>
-                                    <a href="#">
-                                        <img src="../static/imgs/qidian.jpg" alt="公司log" width="80" height="80">
-                                    </a>
-                                </p>
-                                <p class="company-name">
-                                    起点学院
-                                </p>
-                                <p class="card-info">
-                                    <span>企业服务，教育</span>
-                                    <span>/</span>
-                                    <span>A轮</span>
-                                </p>
-                                <p class="slogan">
-                                    人人都是产品经理
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body ct">
-                                <p>
-                                    <a href="#">
-                                        <img src="../static/imgs/qidian.jpg" alt="公司log" width="80" height="80">
-                                    </a>
-                                </p>
-                                <p class="company-name">
-                                    起点学院
-                                </p>
-                                <p class="card-info">
-                                    <span>企业服务，教育</span>
-                                    <span>/</span>
-                                    <span>A轮</span>
-                                </p>
-                                <p class="slogan">
-                                    人人都是产品经理
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card mb-4 box-shadow">
-                            <div class="card-body ct">
-                                <p>
-                                    <a href="#">
-                                        <img src="../static/imgs/qidian.jpg" alt="公司log" width="80" height="80">
-                                    </a>
-                                </p>
-                                <p class="company-name">
-                                    起点学院
-                                </p>
-                                <p class="card-info">
-                                    <span>企业服务，教育</span>
-                                    <span>/</span>
-                                    <span>A轮</span>
-                                </p>
-                                <p class="slogan">
-                                    人人都是产品经理
-                                </p>
-                            </div>
+                {% for company in companies %}
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body ct">
+                            <p>
+                                <a href="#">
+                                    <img src="../static/clogo/{{ company.logo }}" alt="公司log" width="80" height="80">
+                                </a>
+                            </p>
+                            <p class="company-name">
+                                {{ company.short_name }}
+                            </p>
+                            <p class="card-info">
+                                {% set sep = joiner("|") %}
+                                {% for tag in str_to_lst(company.trade, ',') %}
+                                {{ sep() }} <span>{{ tag }}</span>
+                                {% endfor %}
+                            </p>
+                            <p class="slogan">
+                                {{ company.short_description }}
+                            </p>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+                </div>
+
+
             </div>
-            <a href="#" class="list_more" target="_blank">查看更多</a>
+            <a href="{{ url_for('company.index') }}" class="list_more">查看更多</a>
         </div>
     </div>
 {% endblock %}

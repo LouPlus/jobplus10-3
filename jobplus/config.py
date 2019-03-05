@@ -19,7 +19,7 @@ class DevelopConfig(BaseConfig):
 
 # Test环境
 class TestConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Zk6RTBjGNK@150.109.62.40/jobplus?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Zk6RTBjGNK@sh-cdb-8280ncbs.sql.tencentcdb.com:62304/jobplus?charset=utf8'
 
 
 # 线上生产环境
