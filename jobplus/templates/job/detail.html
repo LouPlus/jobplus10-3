@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="job-title-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <div class="job-title-logo">
+                <img src="https://logo-static.segmentfault.com/989/446/989446822-5aa902ee4c34b_medium255">
+            </div>
+        
+            <h3><a class="position" href="{{job.url}}">  {{job.name }} </a></h3>
+            <ul class="job-requirements-list">
+                <li class="salary">{{job.salary_min}}K - {{job.salary_max}}K </li>
+                <li class="citys">{{ job.company.city }}city</li>
+                <li>{{ job.degree_requirement }}</li>
+                <li>经验{{ job.experience_requirement }}年</li>
+                <li>
+                    {% if job.is_fulltime %}
+                        全职
+                    {% else %}
+                        兼职
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="labels">
+                {% for tag in job.tag_list %}
+                    <span class="badge badge-success">
+                        {{tag}}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-md-3 hidden-sm">
+            job-submit
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <h3>
+                职位描述
+            </h3>
+            <p>
+                {{job.description}}
+            </p>
+
+            <h3>
+                职位要求
+            </h3>
+            <p>
+                {{job.requirement}}
+            </p>
+        </div>
+        <div class="col-md-3 hidden-sm">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://logo-static.segmentfault.com/989/446/989446822-5aa902ee4c34b_medium255" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{job.company.name}}</h5>
+                  <a href="{{job.company.website}}">{{job.company.website}}</a>
+                  <p class="card-text">{{job.company.short_description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

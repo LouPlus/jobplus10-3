@@ -13,8 +13,9 @@ def index():
         per_page = current_app.config['JOB_PER_PAGE'],
         error_out = False
     )
-    return render_template('job.html',pagination=pagination)
+    return render_template('job/job.html',pagination=pagination)
 
 @job.route('/<int:job_id>')
 def detail(job_id):
-    return 'job detail: {}'.format(job_id)
+    job = Job.query.get_or_404(job_id)
+    return render_template('job/detail.html', job=job)
