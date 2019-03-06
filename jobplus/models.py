@@ -84,12 +84,13 @@ class Company(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, index=True, unique=True, comment='公司名')
-    slogan = db.Column(db.String(24), nullable=False, index=True, unique=True, comment='slogan')
+    short_name = db.Column(db.String(64), comment='公司简称')
+    short_description = db.Column(db.String(64), comment='一句话描述')
     logo = db.Column(db.String(64), nullable=False, default='avatar.png')
+
     website = db.Column(db.String(64))
     contact = db.Column(db.String(24), comment='联系方式')
     location = db.Column(db.String(24), comment='公司地址')
-    short_description = db.Column(db.String(10), comment='一句话描述')
     full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
@@ -98,6 +99,8 @@ class Company(Base):
     trade = db.Column(db.String(32), comment='所处行业')
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
+    size = db.Column(db.String(32), comment='企业规模')
+    lagou_company_id = db.Column(db.Integer, comment='拉钩公司id，方便日后爬取数据用')
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
     user = db.relationship('User', uselist=False, backref=db.backref('company', uselist=False))

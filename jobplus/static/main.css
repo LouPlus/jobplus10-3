@@ -113,7 +113,14 @@ p.company-name {
 p.slogan {
   margin-top: 5px;
   color: #555;
+  line-height: 22px;
+  font-size: 14px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
+
+
 
 div.container-profie {
   width: 100%;
@@ -164,6 +171,7 @@ footer p {
   /* 设置 form 居中 */
   margin: 0 auto;
 }
+
 
 
 label.custom-file-label:lang(zh)::after {
