@@ -44,6 +44,7 @@ class User(Base, UserMixin):
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     work_years = db.Column(db.SmallInteger, comment="工作年龄")
     resume_url = db.Column(db.String(64))
+    is_disable = db.Column(db.Boolean, default=False, comment="是否被封禁")
 
     # 关联简历表，结构化简历，以后做
     # resume = db.relation('Resume', uselist=False)

@@ -1,0 +1,11 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import render_form %}
+{% set active = "users" %}
+
+{% block title %}
+admin user
+{% endblock %}
+{% block content_title %} 编辑用户信息 {% endblock %}
+{% block content %}
+    {{ render_form(form, url_for('admin.edit_user', user_id=user.id), '')}}
+{% endblock %}

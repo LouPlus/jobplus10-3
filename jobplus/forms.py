@@ -52,7 +52,6 @@ class RegisterForm(FlaskForm):
         user.password = self.password.data
         db.session.add(user)
         db.session.commit()
-
         return user
 
 
@@ -131,3 +130,53 @@ class CompanyProfileForm(FlaskForm):
         db.session.add(user)
         db.session.add(company_info)
         db.session.commit()
+
+
+class UserEditForm(FlaskForm):
+    email = StringField('邮箱', validators=[DataRequired(), Email(message="邮箱格式不正确")])
+    password = PasswordField('密码')
+    real_name = StringField('姓名')
+    phone = StringField('手机号', render_kw={"required": "required", "placeholder": "请输入11位手机号"})
+    submit = SubmitField('提交')
+
+    def validate_phone(self, field):
+        phone = field.data
+        if phone[:2] not in ('13', '15', '18') or len(phone) != 11:
+            raise ValidationError('请输入有效的手机号')
+
+    def update(self, user):
+        self.populate_obj(user)
+        if self.password.data:
+            user.password = self.password.data
+        db.session.add(user)
+        db.session.commit()
+
+
+class CompanyEditForm(FlaskForm):
+    name = StringField('企业名称')
+    email = StringField('邮箱', validators=[DataRequired(), Email(message="邮箱格式不正确")])
+    password = PasswordField('密码')
+    phone = StringField('手机号')
+    site = StringField('公司网站', validators=[Length(0, 64)])
+    description = StringField('一句话简介', validators=[Length(0, 100)])
+    submit = SubmitField('提交')
+
+    def update(self, user):
+        user.name = self.name.data
+        user.email = self.email.data
+        if self.password.data:
+            user.password = self.password.data
+
+        if user.company_info:
+            company_info = user.company_info
+
+        else:
+            company_info = Company()
+            company_info.user_id = user.id
+
+        company_info.website = self.site.data
+        company_info.short_description = self.description.data
+        db.session.add(user)
+        db.session.add(company_info)
+        db.session.commit()
+

@@ -1,0 +1,54 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import render_pagination %}
+
+{% set active = "users" %}
+
+{% block title %}
+admin user
+{% endblock %}
+{% block content_title %} 用户管理 {% endblock %}
+{% block content %}
+<table class="table table-striped table-sm">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>用户名/企业名称</th>
+        <th>类型</th>
+        <th>邮箱</th>
+        <th>手机号</th>
+        <th>姓名</th>
+        <th>企业网站</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in pagination.items %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{% if user.is_company %}企业{% else %}求职者{% endif %}</td>
+        <td>{{ user.email }}</td>
+        <td>{% if user.phone %}{{ user.phone }}{% else %}暂无{% endif %}</td>
+        <td>{% if user.real_name %}{{ user.real_name }}{% else %}暂无{% endif %}</td>
+        <td>{% if user.is_company.website %}{{ user.company_info.website }}  {% else %} 暂无 {% endif %}</td>
+        <td>
+            <div class="btn-group" role="group">
+                <a href="{{ url_for('admin.edit_user', user_id=user.id)  }}">
+                <button type="button" class="btn-sm btn-outline-primary">编辑</button>
+                </a>
+
+                <a href="{{ url_for('admin.disable_user', user_id=user.id) }}">
+                <button type="button" class="btn-sm {% if user.is_disable %} btn-outline-success {% else %}btn-outline-danger{% endif %}">
+                    {% if user.is_disable %}启用{% else %}禁用{% endif %}
+                </button>
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{{ render_pagination(pagination, 'admin.users') }}
+
+{% endblock %}
+

@@ -21,7 +21,7 @@ def login():
         login_user(user, form.remember_me.data)
         next = 'user.profile'
         if user.is_admin:
-            next = 'admin.index'
+            next = 'admin.admin_base.html'
         elif user.is_company:
             next = 'company.profile'
         return redirect(url_for(next))
@@ -57,7 +57,7 @@ def companyregister():
 def logout():
     logout_user()
     flash('您已退出登录','success')
-    return redirect(url_for('.index'))
+    return redirect(url_for('.admin_base.html'))
 
 
 

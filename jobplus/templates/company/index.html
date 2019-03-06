@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import render_pagination2 %}
+{% from "macros.html" import render_pagination %}
 {% set active = "company" %}
 {% block title %}公司{% endblock %}
 {% block body %}
@@ -20,10 +20,12 @@
                             {{ company.short_name }}
                         </p>
                         <p class="card-info">
+                            {% if company.trade %}
                             {% set sep = joiner("|") %}
                             {% for tag in str_to_lst(company.trade, ',') %}
                             {{ sep() }} <span>{{ tag }}</span>
                             {% endfor %}
+                            {% endif %}
                         </p>
                         <p class="slogan">
                             {{ company.short_description }}
@@ -33,12 +35,10 @@
             </div>
             {% endfor %}
         </div>
-        {{ render_pagination2(pagination, 'company.index') }}
+        {{ render_pagination(pagination, 'company.index') }}
 
     </div>
 </div>
-
-
 
 {% endblock %}
 
