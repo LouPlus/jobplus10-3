@@ -1,0 +1,13 @@
+{% extends "admin/admin_base.html" %}
+{% from "macros.html" import render_form %}
+{% set active = "create_user" %}
+
+{% block title %}
+admin user
+{% endblock %}
+{% block content_title %} 创建用户 {% endblock %}
+{% block content %}
+    {{ render_form(form, url_for('admin.create_user'), '')}}
+{% endblock %}
+
+

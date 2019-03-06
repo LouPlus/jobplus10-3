@@ -5,7 +5,8 @@ class BaseConfig:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hello shiyanlou'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JOB_PER_PAGE = 9
-    COMPANY_PER_PAGE = 9
+    COMPANY_PER_PAGE = 12
+    ADMIN_PER_PAGE = 15
     CSRF_ENABLED = True
     # 上传文件目录
     UPLOADS_DEFAULT_DEST = 'jobplus/static/'
