@@ -1,3 +1,12 @@
+a {
+  text-decoration:none;
+  color:#333;
+}
+
+ul {
+  list-style: none;
+}
+
 :root {
   --jumbotron-padding-y: 3rem;
 }
@@ -183,4 +192,59 @@ label.custom-file-label.selected:lang(zh)::after {
   content: "选择文件";
 }
 
+
+.filter-header {
+  margin-bottom: 20px;
+}
+
+
+ul.filter-wrapper {
+  position: relative;
+  margin-top: 20px;
+  padding: 8px 0;
+  background-color: #fafafa;
+  border: 1px solid #ededed;
+  min-height: 30px;
+}
+
+.details {
+  position: relative;
+  overflow: visible;
+  background: #fafafa;
+}
+
+ul.filter-wrapper .details > li {
+  position: relative;
+  z-index: 2;
+}
+
+ul.filter-wrapper li {
+  padding: 4px 0;
+  zoom: 1;
+  color: #555;
+  border-bottom: 1px dashed transparent;
+}
+
+ul.filter-wrapper li span {
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+ul.filter-wrapper li a {
+  font-size: 14px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+ul.filter-wrapper li a.active {
+  background-color: #00b38a;
+  color: #fff;
+}
+
+ul.filter-wrapper li a:hover {
+  background-color: #00b38a;
+  color: #fff;
+}
 
