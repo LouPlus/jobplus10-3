@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_pagination %}
+{% set active = "company" %}
+{% block title %}公司{% endblock %}
+{% block body %}
+<div class="album py-4 bg-light">
+    <div class="container">
+
+        <div class="row">
+            {% for company in pagination.items %}
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body ct">
+                        <p>
+                            <a href="#">
+                                <img src="../static/clogo/{{ company.logo }}" alt="公司log" width="80" height="80">
+                            </a>
+                        </p>
+                        <p class="company-name">
+                            {{ company.short_name }}
+                        </p>
+                        <p class="card-info">
+                            {% if company.trade %}
+                            {% set sep = joiner("|") %}
+                            {% for tag in str_to_lst(company.trade, ',') %}
+                            {{ sep() }} <span>{{ tag }}</span>
+                            {% endfor %}
+                            {% endif %}
+                        </p>
+                        <p class="slogan">
+                            {{ company.short_description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {{ render_pagination(pagination, 'company.index') }}
+
+    </div>
+</div>
+
+{% endblock %}
+

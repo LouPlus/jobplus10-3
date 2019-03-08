@@ -15,5 +15,3 @@ def profile():
         flash('个人信息更新成功', 'success')
         return redirect(url_for('front.index'))
     return render_template('user/profile.html', form=form)
-
-

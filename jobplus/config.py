@@ -5,7 +5,8 @@ class BaseConfig:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hello shiyanlou'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JOB_PER_PAGE = 9
-    COMPANY_PER_PAGE = 9
+    COMPANY_PER_PAGE = 12
+    ADMIN_PER_PAGE = 15
     CSRF_ENABLED = True
     # 上传文件目录
     UPLOADS_DEFAULT_DEST = 'jobplus/static/'
@@ -19,7 +20,7 @@ class DevelopConfig(BaseConfig):
 
 # Test环境
 class TestConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Zk6RTBjGNK@150.109.62.40/jobplus?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:Zk6RTBjGNK@sh-cdb-8280ncbs.sql.tencentcdb.com:62304/jobplus?charset=utf8'
 
 
 # 线上生产环境

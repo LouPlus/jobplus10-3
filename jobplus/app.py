@@ -4,16 +4,18 @@ from flask_login import LoginManager
 from flask_uploads import configure_uploads, patch_request_class
 
 from jobplus.forms import rfile, clogo
+from jobplus.lib.template_func import str_to_lst
 from .config import configs
 from jobplus.models import db, User
 
 
 def register_blueprints(app):
-    from .handlers import front, user, company, job
+    from .handlers import front, user, company, job, admin
     app.register_blueprint(front)
     app.register_blueprint(user)
     app.register_blueprint(company)
     app.register_blueprint(job)
+    app.register_blueprint(admin)
 
 
 def create_app(config):
@@ -30,6 +32,7 @@ def register_extensions(app):
     configure_uploads(app, (rfile, clogo))
     login_manager = LoginManager()
     login_manager.init_app(app)
+    app.add_template_global(str_to_lst, 'str_to_lst')
 
     @login_manager.user_loader
     def user_loader(id):

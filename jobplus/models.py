@@ -44,6 +44,7 @@ class User(Base, UserMixin):
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     work_years = db.Column(db.SmallInteger, comment="工作年龄")
     resume_url = db.Column(db.String(64))
+    is_disable = db.Column(db.Boolean, default=False, comment="是否被封禁")
 
     # 关联简历表，结构化简历，以后做
     # resume = db.relation('Resume', uselist=False)
@@ -84,12 +85,13 @@ class Company(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False, index=True, unique=True, comment='公司名')
-    slogan = db.Column(db.String(24), nullable=False, index=True, unique=True, comment='slogan')
+    short_name = db.Column(db.String(64), comment='公司简称')
+    short_description = db.Column(db.String(64), comment='一句话描述')
     logo = db.Column(db.String(64), nullable=False, default='avatar.png')
+
     website = db.Column(db.String(64))
     contact = db.Column(db.String(24), comment='联系方式')
     location = db.Column(db.String(24), comment='公司地址')
-    short_description = db.Column(db.String(10), comment='一句话描述')
     full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
@@ -98,6 +100,8 @@ class Company(Base):
     trade = db.Column(db.String(32), comment='所处行业')
     funding = db.Column(db.String(32), comment='融资阶段')
     city = db.Column(db.String(32), comment='所在城市')
+    size = db.Column(db.String(32), comment='企业规模')
+    lagou_company_id = db.Column(db.Integer, comment='拉钩公司id，方便日后爬取数据用')
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
     user = db.relationship('User', uselist=False, backref=db.backref('company', uselist=False))
@@ -121,7 +125,7 @@ class Job(Base):
     tags = db.Column(db.String(128), comment='职位标签')
     experience_requirement = db.Column(db.String(32), comment='工作经验要求')
     degree_requirement = db.Column(db.String(32), comment='学历要求')
-    is_fulltime = db.Column(db.Boolean, default=True, comment='是否全职')
+    job_nature = db.Column(db.String(32), comment='是否全职')
     is_open = db.Column(db.Boolean, default=True, comment='是否在招聘')
     company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
     company = db.relationship('Company', uselist=False)

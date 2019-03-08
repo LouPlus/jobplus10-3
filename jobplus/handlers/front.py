@@ -2,14 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
 
 from jobplus.forms import LoginForm, RegisterForm
-from jobplus.models import db, User
+from jobplus.models import db, User, Company
 
 front = Blueprint('front', __name__)
 
 
 @front.route('/')
 def index():
-    return render_template('index.html')
+    companies = Company.query.order_by(Company.id).limit(8).all()
+    return render_template('index.html', companies=companies)
 
 
 @front.route('/login', methods=['GET', 'POST'])
@@ -20,7 +21,7 @@ def login():
         login_user(user, form.remember_me.data)
         next = 'user.profile'
         if user.is_admin:
-            next = 'admin.index'
+            next = 'admin.admin_base.html'
         elif user.is_company:
             next = 'company.profile'
         return redirect(url_for(next))
@@ -56,7 +57,7 @@ def companyregister():
 def logout():
     logout_user()
     flash('您已退出登录','success')
-    return redirect(url_for('.index'))
+    return redirect(url_for('.admin_base.html'))
 
 
 
