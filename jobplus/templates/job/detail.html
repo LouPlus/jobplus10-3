@@ -6,13 +6,13 @@
     <div class="row">
         <div class="col-md-9 col-sm-12">
             <div class="job-title-logo">
-                <img src="https://logo-static.segmentfault.com/989/446/989446822-5aa902ee4c34b_medium255">
+                <img src="../static/clogo/{{ job.company.logo }}">
             </div>
         
             <h3><a class="position" href="{{job.url}}">  {{job.name }} </a></h3>
             <ul class="job-requirements-list">
                 <li class="salary">{{job.salary_min}}K - {{job.salary_max}}K </li>
-                <li class="citys">{{ job.company.city }}city</li>
+                <li class="citys">{{ job.company.city }}</li>
                 <li>{{ job.degree_requirement }}</li>
                 <li>经验{{ job.experience_requirement }}年</li>
                 <li>
@@ -35,12 +35,13 @@
         </div>
         
         <div class="col-md-3 hidden-sm">
-            job-submit
+            <button class="btn  btn-success">提交简历</button>
         </div>
     </div>
 </div>
 </div>
 
+<div class="job-body-header">
 <div class="container">
     <div class="row">
         <div class="col-md-9 col-sm-12">
@@ -60,15 +61,21 @@
         </div>
         <div class="col-md-3 hidden-sm">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="https://logo-static.segmentfault.com/989/446/989446822-5aa902ee4c34b_medium255" alt="Card image cap">
+                <img class="card-img-top" src="../static/clogo/{{ job.company.logo }}" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">{{job.company.name}}</h5>
-                  <a href="{{job.company.website}}">{{job.company.website}}</a>
+                  <p>网站:
+                    {% if job.company.website %}  
+                        <span><a href="{{job.company.website}}">{{job.company.website}}</a></span>
+                    {%endif%}
+                  </p>
                   <p class="card-text">{{job.company.short_description}}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 
 {% endblock %}

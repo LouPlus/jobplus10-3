@@ -113,6 +113,12 @@ class Company(Base):
     def url(self):
         return url_for('company.detail', company_id=self.id)
 
+    @property
+    def tag_list(self):
+        #将中文逗号替换为英文的
+        return self.welfare.replace('，',',').split(',')
+
+
 
 class Job(Base):
     __tablename__ = 'job'

@@ -56,19 +56,17 @@
                     </div>
                 </div>
                 <div class="card-btm">
-                    <a href="#" class="fl">
-                        <img src="../static/imgs/tx.jpg" class="cp-logo"  width="40" height="40" alt="公司logo">
+                    <a href="{{job.company.url}}" class="fl">
+                        <img src="../static/clogo/{{ job.company.logo }}" class="cp-logo"  width="40" height="40" alt="公司logo">
                     </a>
                     <div class="btm-right">
                         <div class="cp-name">
                             <a href="{{job.company.url}}">{{job.company.name}}</a>
                         </div>
                         <div class="card-info">
-                            <span>移动互联网</span>
-                            <span>/</span>
-                            <span>A轮</span>
-                            <span>/</span>
-                            <span>上海浦东</span>
+                           
+                            <span>{{ job.company.trade }}</span>
+                        
                         </div>
                     </div>
                 </div>
