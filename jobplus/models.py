@@ -113,6 +113,12 @@ class Company(Base):
     def url(self):
         return url_for('company.detail', company_id=self.id)
 
+    @property
+    def tag_list(self):
+        #将中文逗号替换为英文的
+        return self.welfare.replace('，',',').split(',')
+
+
 
 class Job(Base):
     __tablename__ = 'job'
@@ -125,7 +131,7 @@ class Job(Base):
     tags = db.Column(db.String(128), comment='职位标签')
     experience_requirement = db.Column(db.String(32), comment='工作经验要求')
     degree_requirement = db.Column(db.String(32), comment='学历要求')
-    is_fulltime = db.Column(db.Boolean, default=True, comment='是否全职')
+    job_nature = db.Column(db.String(32), comment='是否全职')
     is_open = db.Column(db.Boolean, default=True, comment='是否在招聘')
     company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
     company = db.relationship('Company', uselist=False)

@@ -14,14 +14,14 @@ company = Blueprint('company', __name__, url_prefix='/company')
 def profile():
     if not current_user.is_company:
         flash('您不是企业用户，无法登陆', 'warning')
-        return redirect(url_for('font.admin_base.html'))
+        return redirect(url_for('front.index'))
     form = CompanyProfileForm(obj=current_user.company_info)
     form.name.data = current_user.name
     form.email.data = current_user.email
     if form.validate_on_submit():
         form.updated_profile(current_user)
         flash('企业信息更新成功', 'success')
-        return redirect(url_for('front.admin_base.html'))
+        return redirect(url_for('front.index'))
     return render_template('company/profile.html', form=form)
 
 

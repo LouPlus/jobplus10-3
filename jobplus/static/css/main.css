@@ -193,6 +193,52 @@ label.custom-file-label.selected:lang(zh)::after {
 }
 
 
+div.job-title-header{
+  padding: 2rem 0 0 0;
+}
+
+div.job-body-header{
+  padding: 2rem 0 0 0;
+}
+
+.job-title-logo{
+  float: left;
+  height: 100px;
+  width: 100px;
+  background: #FFFFFF;
+  border-radius: 3px;
+  border: 1px solid #DDDDDD;
+  margin-right: 20px;
+}
+
+.job-title-logo img {
+  width: 100%;
+  border: 6px solid #FFFFFF;
+}
+
+.job-requirements-list{
+  list-style: none;
+  padding: 0;
+}
+
+.job-requirements-list li{
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.job-tags-list{
+  list-style: none;
+  padding: 0;
+}
+
+.job-tags-list li{
+  display: inline;
+  margin-right: 20px;
+}
+
+.citys{
+  color: green;
+}
 .filter-header {
   margin-bottom: 20px;
 }
