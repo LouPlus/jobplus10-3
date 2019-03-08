@@ -1,10 +1,76 @@
 {% extends "base.html" %}
 {% from "macros.html" import render_pagination %}
 {% set active = "company" %}
+
 {% block title %}公司{% endblock %}
 {% block body %}
 <div class="album py-4 bg-light">
     <div class="container">
+        <div class="filter-header">
+            <ul class="filter-wrapper">
+                <div class="details">
+                    <li class="multi-chosen financeStage">
+                        <span class="title">热门城市</span>
+                        {% for city in company_filter_data.city %}
+                        {% if city == '不限' %}
+                        <a class="{% if not args_dict['city'] %} active {% endif %}"
+                           href="{{url_for('company.index', city='', funding=args_dict['funding'], trade=args_dict['trade'], size=args_dict['size'])}}" >{{ city }}</a>
+                        {% else %}
+                        <a class="{% if args_dict['city'] == city %} active {% endif %}"
+                           href="{{url_for('company.index', city=city, funding=args_dict['funding'], trade=args_dict['trade'], size=args_dict['size']) }}">
+                            {{ city }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li class="multi-chosen financeStage">
+                        <span>融资阶段</span>
+                        {% for funding in company_filter_data.funding %}
+                        {% if funding == '不限' %}
+                        <a class="{% if not args_dict['funding'] %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding='', trade=args_dict['trade'], size=args_dict['size'])}}" >{{ funding }}</a>
+                        {% else %}
+                        <a class="{% if args_dict['funding'] == funding %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding=funding, trade=args_dict['trade'], size=args_dict['size'])}}">
+                            {{ funding }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+
+                    </li>
+                    <li class="multi-chosen financeStage">
+                        <span>行业领域</span>
+                        {% for trade in company_filter_data.trade %}
+                        {% if trade == '不限' %}
+                        <a class="{% if not args_dict['trade'] %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding=args_dict['funding'], trade='', size=args_dict['size'])}}" >{{ trade }}</a>
+                        {% else %}
+                        <a class="{% if args_dict['trade'] == trade %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding=args_dict['funding'], trade=trade, size=args_dict['size'])}}">
+                            {{ trade }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li class="multi-chosen financeStage">
+                        <span>公司规模</span>
+                        {% for size in company_filter_data.size %}
+                        {% if size == '不限' %}
+                        <a class="{% if not args_dict['size'] %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding=args_dict['funding'], trade=args_dict['trade'], size='')}}" >
+                            {{ size }}
+                        </a>
+                        {% else %}
+                        <a class="{% if args_dict['size'] == size %} active {% endif %}"
+                           href="{{url_for('company.index', city=args_dict['city'], funding=args_dict['funding'], trade=args_dict['trade'], size=size)}}" >
+                            {{ size }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </li>
+                </div>
+            </ul>
+        </div>
 
         <div class="row">
             {% for company in pagination.items %}
