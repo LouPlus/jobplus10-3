@@ -1,6 +1,6 @@
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -152,6 +152,11 @@ class Job(Base):
     def tag_list(self):
         #将中文逗号替换为英文的
         return self.tags.replace('，',',').split(',')
+
+    @property
+    def is_current_user_applied(self):
+        delivery = Delivery.query.filter_by(job_id=self.id,user_id=current_user.id).first()
+        return (delivery is not None)
 
 
 class Delivery(Base):

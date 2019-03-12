@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, current_app
-
-from jobplus.models import Job
+from flask import Blueprint, render_template, url_for, request, current_app, redirect, flash
+from flask_login import login_required, current_user
+from jobplus.models import Job, Delivery, db
 
 job = Blueprint('job', __name__, url_prefix='/job')
 
@@ -20,3 +20,21 @@ def index():
 def detail(job_id):
     job = Job.query.get_or_404(job_id)
     return render_template('job/detail.html', job=job)
+
+@job.route('/<int:job_id>/apply')
+@login_required
+def apply(job_id):
+    job=Job.query.get_or_404(job_id)
+    if job.is_current_user_applied: 
+        flash('当前职位已经投递过','warning')
+    else:
+        delivery = Delivery(
+            job_id=job_id,
+            user_id=current_user.id,
+            status=Delivery.STATUS_WAITING,
+            location=job.location
+        )
+        db.session.add(delivery)
+        db.session.commit()
+        flash('投递成功','success')
+    return redirect(url_for('.detail', job_id=job_id))
