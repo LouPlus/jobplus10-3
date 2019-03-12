@@ -57,7 +57,7 @@ def companyregister():
 def logout():
     logout_user()
     flash('您已退出登录','success')
-    return redirect(url_for('.admin_base.html'))
+    return redirect(url_for('.index'))
 
 
 
