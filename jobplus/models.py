@@ -1,6 +1,6 @@
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -133,8 +133,8 @@ class Job(Base):
     degree_requirement = db.Column(db.String(32), comment='学历要求')
     job_nature = db.Column(db.String(32), comment='是否全职')
     is_open = db.Column(db.Boolean, default=True, comment='是否在招聘')
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
-    company = db.relationship('Company', uselist=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    company = db.relationship('User', uselist=False)
     view_count = db.Column(db.Integer, default=0, comment='该岗位浏览数')
 
     description = db.Column(db.String(1024))
@@ -152,6 +152,11 @@ class Job(Base):
     def tag_list(self):
         #将中文逗号替换为英文的
         return self.tags.replace('，',',').split(',')
+
+    @property
+    def is_current_user_applied(self):
+        delivery = Delivery.query.filter_by(job_id=self.id,user_id=current_user.id).first()
+        return (delivery is not None)
 
 
 class Delivery(Base):
