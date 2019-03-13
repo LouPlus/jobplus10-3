@@ -4,11 +4,11 @@ from flask_uploads import UploadSet, IMAGES
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileRequired
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, FileField, \
-    TextAreaField
+    TextAreaField, SelectField
 from wtforms.validators import Length, Email, EqualTo, DataRequired, NumberRange
 
 from jobplus.lib.tool import random_string
-from jobplus.models import db, User, Company
+from jobplus.models import db, User, Company, Job
 
 rfile = UploadSet('RFile', extensions=('pdf', 'doc', 'docx', 'md'))
 clogo = UploadSet('clogo', IMAGES)
@@ -180,3 +180,43 @@ class CompanyEditForm(FlaskForm):
         db.session.add(company_info)
         db.session.commit()
 
+class JobForm(FlaskForm):
+    name = StringField('职位名称')
+    salary_min = IntegerField('最低薪资')
+    salary_max = IntegerField('最高薪资')
+    location = StringField('工作地点')
+    tags = StringField(r'职位标签(多个用，隔开)')
+    experience_requirement =SelectField(u'工作经验要求',choices=[('不限','不限'),
+                                                            ('1-3','1-3'),
+                                                            ('3-5','3-5'),
+                                                            ('5+','5+')])
+    degree_requirement = SelectField(u'学历要求',choices=[('不限','不限'),
+                                              ('专科','专科'),
+                                              ('本科','本科'),
+                                              ('硕士','硕士'),
+                                              ('博士','博士'),])
+    description = StringField(u'职位描述')
+    submit = SubmitField('提交')
+
+    def create_job(self, company):
+        job = Job()
+        job.name=self.name.data
+        job.salary_min =self.salary_min.data
+        job.salary_max = self.salary_max.data
+        job.location = self.location.data
+        job.tags=self.tags.data
+        job.experience_requirement = self.experience_requirement.data
+        job.degree_requirement = self.degree_requirement.data
+        job.description = self.description.data
+        job.company = company
+
+        db.session.add(job)
+        db.session.commit()
+
+    def update_job(self, job):
+        self.populate_obj(job)
+        db.session.add(job)
+        db.session.commit()
+        return job
+
+        

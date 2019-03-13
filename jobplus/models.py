@@ -133,8 +133,8 @@ class Job(Base):
     degree_requirement = db.Column(db.String(32), comment='学历要求')
     job_nature = db.Column(db.String(32), comment='是否全职')
     is_open = db.Column(db.Boolean, default=True, comment='是否在招聘')
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
-    company = db.relationship('Company', uselist=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    company = db.relationship('User', uselist=False)
     view_count = db.Column(db.Integer, default=0, comment='该岗位浏览数')
 
     description = db.Column(db.String(1024))

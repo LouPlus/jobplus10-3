@@ -1,4 +1,4 @@
-from jobplus.models import db, Job, Company
+from jobplus.models import db, Job, Company,User
 from faker import Faker
 from random import randint,choice
 import json
@@ -14,7 +14,7 @@ degrees = ['本科','专科', '硕士' ,'博士']
 natures = ['全职',  '兼职']
 
 def add_jobs(file):
-    companys = Company.query.all()
+    companys = User.query.filter_by(role=User.ROLE_COMPANY)
     for c in companys:
         fake_job_num = randint(2,4)
         for i in range(fake_job_num):
