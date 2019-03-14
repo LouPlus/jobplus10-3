@@ -4,7 +4,7 @@ from sqlalchemy import and_
 
 from jobplus.forms import CompanyProfileForm
 from jobplus.lib.source_data import company_filter_data
-from jobplus.models import User, Company, Job, db
+from jobplus.models import User, Company, Job, db, Delivery
 from jobplus.forms import JobForm
 
 company = Blueprint('company', __name__, url_prefix='/company')
@@ -80,9 +80,50 @@ def admin_index(company_id):
 @company.route('/<int:company_id>/admin/apply/')
 @login_required
 def admin_apply(company_id):
-    if  current_user.id != company_id:
+    if current_user.id != company_id:
         abort(404)
-    return render_template('company/admin_apply.html', company_id=company_id)
+    status = request.args.get('status','all')
+    page = request.args.get('page',default=1, type=int)
+    q = Delivery.query.filter_by(company_id = company_id)
+
+    if status == 'todolist':
+        q=q.filter(Delivery.status==Delivery.STATUS_WAITING)
+    elif status == 'reject':
+        q=q.filter(Delivery.status==Delivery.STATUS_REJECT)
+    elif status == 'accept':
+        q=q.filter(Delivery.status==Delivery.STATUS_ACCEPT)
+
+    pagination = q.paginate(
+        page = page,
+        per_page = current_app.config['ADMIN_PER_PAGE'],
+        error_out = False
+    )
+    return render_template('company/admin_apply.html',pagination=pagination, company_id=company_id)
+
+@company.route('/<int:company_id>/admin/apply/<int:apply_id>/reject/')
+@login_required
+def admin_apply_reject(company_id, apply_id):
+    if current_user.id != company_id:
+        abort(404)
+    apply = Delivery.query.get_or_404(apply_id)
+    apply.status = Delivery.STATUS_REJECT
+    db.session.add(apply)
+    db.session.commit()
+    flash('已拒绝该投递','success')
+    return redirect(url_for('company.admin_apply',company_id=company_id))
+
+@company.route('/<int:company_id>/admin/apply/<int:apply_id>/accept/')
+@login_required
+def admin_apply_accept(company_id, apply_id):
+    if current_user.id != company_id:
+        abort(404)
+    apply = Delivery.query.get_or_404(apply_id)
+    apply.status = Delivery.STATUS_ACCEPT
+    db.session.add(apply)
+    db.session.commit()
+    flash('已接受该投递,准备面试','success')
+    return redirect(url_for('company.admin_apply',company_id=company_id))
+
 
 @company.route('/<int:company_id>/admin/job/<int:job_id>/disable')
 @login_required
@@ -140,6 +181,5 @@ def admin_delete_job(company_id,job_id):
     db.session.commit()
     flash('课程删除成功','success')
     return redirect(url_for('company.admin_index',company_id=company_id))
-
 
 

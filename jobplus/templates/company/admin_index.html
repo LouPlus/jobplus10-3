@@ -3,7 +3,7 @@
 {% from 'macros.html' import render_pagination %}
 
 {% block operation %}
-<a href="{{ url_for('company.admin_add_job',company_id=company_id) }}" type="button" class="btn btn-success">发布职位</a>
+<a href="{{ url_for('company.admin_add_job',company_id=company_id) }}" type="button" class="btn btn-success btn-admin">发布职位</a>
 {%endblock%}
     
 {% block admin %}
