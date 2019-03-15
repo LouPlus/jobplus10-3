@@ -31,6 +31,7 @@ def apply(job_id):
         delivery = Delivery(
             job_id=job_id,
             user_id=current_user.id,
+            company_id=job.company.id,
             status=Delivery.STATUS_WAITING,
             location=job.location
         )
