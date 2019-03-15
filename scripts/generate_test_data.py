@@ -13,7 +13,7 @@ degrees = ['本科','专科', '硕士' ,'博士']
 
 natures = ['全职',  '兼职']
 
-def add_jobs(file):
+def add_jobs():
     companys = User.query.filter_by(role=User.ROLE_COMPANY)
     for c in companys:
         fake_job_num = randint(2,4)
@@ -34,11 +34,12 @@ def add_jobs(file):
 
 
 def run():
-    add_jobs('datas/jobs.json')
+    add_jobs()
 
     try:
         db.session.commit()
     except Exception as e:
         print(e)
         db.session.rollback()
+
 
