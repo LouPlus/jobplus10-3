@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-9 col-sm-12">
             <div class="job-title-logo">
-                <img src="../static/clogo/{{ job.company.logo }}">
+                <img src="../static/clogo/{{ job.company.company.logo }}">
             </div>
         
             <h3><a class="position" href="{{job.url}}">  {{job.name }} </a></h3>
@@ -66,15 +66,15 @@
         </div>
         <div class="col-md-3 hidden-sm">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="../static/clogo/{{ job.company.logo }}" alt="Card image cap">
+                <img class="card-img-top" src="../static/clogo/{{ job.company.company.logo }}" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">{{job.company.name}}</h5>
                   <p>网站:
                     {% if job.company.website %}  
-                        <span><a href="{{job.company.website}}">{{job.company.website}}</a></span>
+                        <span><a href="{{job.company.company.website}}">{{job.company.website}}</a></span>
                     {%endif%}
                   </p>
-                  <p class="card-text">{{job.company.short_description}}</p>
+                  <p class="card-text">{{job.company.company.short_description}}</p>
                 </div>
             </div>
         </div>
