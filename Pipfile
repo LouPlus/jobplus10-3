@@ -18,6 +18,7 @@ flask-wtf = "*"
 wtforms = "*"
 flask-uploads = "*"
 requests = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.5"
