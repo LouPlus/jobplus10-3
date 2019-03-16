@@ -78,7 +78,7 @@
                 <div class="card mb-4 box-shadow">
                     <div class="card-body ct">
                         <p>
-                            <a href="#">
+                            <a href="{{ url_for('company.detail', company_id=company.id) }}">
                                 <img src="../static/clogo/{{ company.logo }}" alt="公司log" width="80" height="80">
                             </a>
                         </p>

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% set active = "job" %}
+
+{% block body %}
+<div class="job-title-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <div class="job-title-logo">
+                <img src="../static/clogo/{{ job.company.company.logo }}">
+            </div>
+        
+            <h3><a class="position" href="{{job.url}}">  {{job.name }} </a></h3>
+            <ul class="job-requirements-list">
+                <li class="salary">{{job.salary_min}}K - {{job.salary_max}}K </li>
+                <li class="citys">{{ job.company.city }}</li>
+                <li>{{ job.degree_requirement }}</li>
+                <li>经验{{ job.experience_requirement }}年</li>
+                <li>
+                    {% if job.is_fulltime %}
+                        全职
+                    {% else %}
+                        兼职
+                    {% endif %}
+                </li>
+
+            </ul>
+
+            <div class="labels">
+                {% for tag in job.tag_list %}
+                    <span class="badge badge-success">
+                        {{tag}}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-md-3 hidden-sm">
+            {% if not job.is_current_user_applied %}
+                <a class="btn  btn-success" href='{{url_for("job.apply", job_id=job.id)}}'>投递简历</a>
+            {% else %}
+                <a class="btn  btn-success disabled" href='#'>已投递</a>
+            {%endif%}
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="job-body-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-12">
+            <h3>
+                职位描述
+            </h3>
+            <p>
+                {{job.description}}
+            </p>
+
+            <h3>
+                职位要求
+            </h3>
+            <p>
+                {{job.requirement}}
+            </p>
+        </div>
+        <div class="col-md-3 hidden-sm">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="../static/clogo/{{ job.company.company.logo }}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{job.company.name}}</h5>
+                  <p>网站:
+                    {% if job.company.website %}  
+                        <span><a href="{{job.company.company.website}}">{{job.company.website}}</a></span>
+                    {%endif%}
+                  </p>
+                  <p class="card-text">{{job.company.company.short_description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

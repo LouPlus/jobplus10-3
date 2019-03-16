@@ -1,6 +1,6 @@
 from flask import url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -91,8 +91,8 @@ class Company(Base):
 
     website = db.Column(db.String(64))
     contact = db.Column(db.String(24), comment='联系方式')
-    location = db.Column(db.String(24), comment='公司地址')
-    full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
+    location = db.Column(db.String(255), comment='公司地址')
+    full_description = db.Column(db.String(1000), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
     team_des = db.Column(db.String(255), comment='团队介绍')
@@ -113,6 +113,12 @@ class Company(Base):
     def url(self):
         return url_for('company.detail', company_id=self.id)
 
+    @property
+    def tag_list(self):
+        #将中文逗号替换为英文的
+        return self.welfare.replace('，',',').split(',')
+
+
 
 class Job(Base):
     __tablename__ = 'job'
@@ -125,10 +131,10 @@ class Job(Base):
     tags = db.Column(db.String(128), comment='职位标签')
     experience_requirement = db.Column(db.String(32), comment='工作经验要求')
     degree_requirement = db.Column(db.String(32), comment='学历要求')
-    is_fulltime = db.Column(db.Boolean, default=True, comment='是否全职')
+    job_nature = db.Column(db.String(32), comment='是否全职')
     is_open = db.Column(db.Boolean, default=True, comment='是否在招聘')
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id', ondelete='CASCADE'))
-    company = db.relationship('Company', uselist=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    company = db.relationship('User', uselist=False)
     view_count = db.Column(db.Integer, default=0, comment='该岗位浏览数')
 
     description = db.Column(db.String(1024))
@@ -147,6 +153,11 @@ class Job(Base):
         #将中文逗号替换为英文的
         return self.tags.replace('，',',').split(',')
 
+    @property
+    def is_current_user_applied(self):
+        delivery = Delivery.query.filter_by(job_id=self.id,user_id=current_user.id).first()
+        return (delivery is not None)
+
 
 class Delivery(Base):
     __tablename__ = 'delivery'
@@ -161,5 +172,14 @@ class Delivery(Base):
     id = db.Column(db.Integer, primary_key=True)
     job_id = db.Column(db.Integer, db.ForeignKey('job.id', ondelete='SET NULL'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
+    company_id = db.Column(db.Integer)
     status = db.Column(db.SmallInteger, default=STATUS_WAITING, comment='投递状态')
     location = db.Column(db.String(255), comment='企业回应')
+
+    @property
+    def user(self):
+        return User.query.get(self.user_id)
+    
+    @property
+    def job(self):
+        return Job.query.get(self.job_id)

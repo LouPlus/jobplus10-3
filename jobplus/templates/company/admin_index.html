@@ -1,0 +1,50 @@
+{% extends 'company/admin_base.html' %}
+
+{% from 'macros.html' import render_pagination %}
+
+{% block operation %}
+<a href="{{ url_for('company.admin_add_job',company_id=company_id) }}" type="button" class="btn btn-success btn-admin">发布职位</a>
+{%endblock%}
+    
+{% block admin %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>职位名称</th>
+            <th>发布时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    {% for job in pagination.items %}
+    <tr>
+        <td>{{ job.id }}</td>
+        <td>{{ job.name }}</td>
+        <td>{{ job.created_at }}</td>
+        <td>{% if job.is_open %}上线{% else %}下线{% endif %}</td>
+        <td>
+            
+            <a href=" {{ url_for('company.admin_disable_job', company_id=company_id, job_id=job.id) }}">
+                <button type='button' class='btn-sm {% if job.is_open %} btn-outline-danger {% else %} btn-outline-success{% endif %}'>
+                    {% if job.is_open %} 下线 {% else %} 上线 {%endif%}
+                </button>
+            </a>
+            <a href="{{ url_for('company.admin_edit_job',company_id=company_id, job_id=job.id) }}">
+                <button type='button' class='btn-sm btn-outline-success'>
+                    编辑
+                </button>
+            </a>
+            <a href="{{ url_for('company.admin_delete_job',company_id=company_id, job_id=job.id) }}">
+                <button type='button' class='btn-sm btn-outline-danger'>
+                    删除
+                </button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{{ render_pagination(pagination,'company.admin_index') }}
+
+{% endblock %}

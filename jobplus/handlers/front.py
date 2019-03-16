@@ -21,7 +21,7 @@ def login():
         login_user(user, form.remember_me.data)
         next = 'user.profile'
         if user.is_admin:
-            next = 'admin.admin_base.html'
+            next = 'front.index'
         elif user.is_company:
             next = 'company.profile'
         return redirect(url_for(next))
@@ -46,6 +46,10 @@ def companyregister():
         user = form.create_user()
         user.role = User.ROLE_COMPANY
         db.session.add(user)
+        company = Company(name=user.name,
+                          short_name=user.name,
+                          user_id=user.id)
+        db.session.add(company)
         db.session.commit()
         flash('注册成功，请登录！','success')
         return redirect(url_for('.login'))
@@ -57,7 +61,7 @@ def companyregister():
 def logout():
     logout_user()
     flash('您已退出登录','success')
-    return redirect(url_for('.admin_base.html'))
+    return redirect(url_for('.index'))
 
 
 

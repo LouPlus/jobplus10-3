@@ -1,0 +1,9 @@
+{% extends 'company/admin_base.html' %}
+
+{% from 'macros.html' import render_form %}
+
+    
+{% block admin %}
+{{render_form(form,url_for('company.admin_add_job',company_id=company_id),'发布职位')}}
+
+{% endblock %}

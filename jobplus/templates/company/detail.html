@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_pagination %}
+{% set active = "company" %}
+
+{% block title %}公司{% endblock %}
+{% block body %}
+<div class="album py-4 bg-light">
+    <div class="container">
+        <div class="top_info">
+            <img src="../static/clogo/{{ company.logo }}" alt="">
+            <div class="company_info">
+                <h2 class="company_title">{{ company.name }}</h2>
+                <p>{{ company.short_description }}</p>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-md-8">
+                <h3 class="pb-4 mb-4 border-bottom">
+                    公司介绍
+                </h3>
+                <div>
+                {{ company.full_description | safe}}
+                </div>
+            </div>
+            <aside class="col-md-4">
+                <div class="p-4 mb-3">
+                    <h4>公司福利</h4>
+                    <p class="mb-0">
+                        {% for tag in str_to_lst(company.welfare, ',') %}
+                        <span class="badge badge-primary">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <div class="p-4">
+                    <h4>公司信息</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li>>{{ company.trade }}</li>
+                        <li>>{{ company.funding }}</li>
+                        <li>>{{ company.city }}</li>
+                        <li>>{{ company.size }}</li>
+                    </ol>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -34,10 +34,19 @@
                     <li class="nav-item {% if active == 'company' %}active{% endif %}">
                         <a class="nav-link" href="{{ url_for('company.index') }}">公司</a>
                     </li>
-                    {% if current_user.is_authenticated and current_user.is_admin %}
-                    <li class="nav-item {% if active == 'admin' %}active{% endif %}">
-                        <a class="nav-link" href="{{ url_for('admin.index') }}" target="_blank">控制台</a>
-                    </li>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.is_admin %}
+                        <li class="nav-item {% if active == 'admin' %}active{% endif %}">
+                            <a class="nav-link" href="{{ url_for('admin.index') }}" target="_blank">控制台</a>
+                        </li>
+                        {% endif %}
+
+                        {% if current_user.is_company %}
+                        <li class="nav-item {% if active == 'company_admin' %}active{% endif %}">
+                            <a class="nav-link" href="{{ url_for('company.admin_index', company_id=current_user.id ) }}">管理</a>
+                        </li>
+                        {% endif %}
+
                     {% endif %}
 
               </ul>
@@ -51,7 +60,7 @@
 
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="{{ url_for('user.profile') }}" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img src="../static/imgs/{{ current_user.avatar }}" width="40" height="40" style="border-radius: 50%" alt="">
+                          <img src="{{ url_for('static', filename = 'imgs/'+ current_user.avatar)}}" width="40" height="40" style="border-radius: 50%" alt="">
                           <span id="username" class="gray">{{ current_user.name }}</span>
                           <span class="caret gray"></span>
                       </a>

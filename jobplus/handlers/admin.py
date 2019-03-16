@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, current_app, flash, redir
 
 from jobplus.forms import CompanyEditForm, UserEditForm, RegisterForm
 from jobplus.lib.decorators import admin_required
-from jobplus.models import User, db, Company
+from jobplus.models import User, db, Company, Job
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -28,7 +28,13 @@ def users():
 @admin.route('/jobs')
 @admin_required
 def jobs():
-    return render_template('admin/jobs.html')
+    page = request.args.get('page', default=1, type=int)
+    pagination = Job.query.paginate(
+        page=page,
+        per_page=current_app.config['ADMIN_PER_PAGE'],
+        error_out=False
+    )
+    return render_template('admin/jobs.html', pagination=pagination)
 
 
 @admin.route('/users/create_user', methods=['GET', 'POST'])
@@ -101,3 +107,16 @@ def edit_user(user_id):
         form.site.data = user.company_info.website
         form.description.data = user.company_info.short_description
     return render_template('admin/edit_user.html', form=form, user=user)
+
+@admin.route('/jobs/<int:job_id>/disable')
+@admin_required
+def disable_job(job_id):
+    job = Job.query.get_or_404(job_id)
+    job.is_open = not job.is_open
+    db.session.add(job)
+    db.session.commit()
+    if job.is_open:
+        flash('已上线职位','success')
+    else:
+        flash('已下线职位','success')
+    return redirect(url_for('.jobs'))
