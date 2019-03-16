@@ -29,10 +29,6 @@ def profile():
 def index():
     page = request.args.get('page', 1, type=int)
     args_dict = request.args.to_dict()
-    # data = {'trade': '',
-    #         'funding': '',
-    #         'size': '',
-    #         'city': '杭州'}
 
     rule_list = []
     for key in args_dict.keys():
