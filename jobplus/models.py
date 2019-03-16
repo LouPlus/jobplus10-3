@@ -91,8 +91,8 @@ class Company(Base):
 
     website = db.Column(db.String(64))
     contact = db.Column(db.String(24), comment='联系方式')
-    location = db.Column(db.String(24), comment='公司地址')
-    full_description = db.Column(db.String(255), comment='关于我们，公司详情描述')
+    location = db.Column(db.String(255), comment='公司地址')
+    full_description = db.Column(db.String(1000), comment='关于我们，公司详情描述')
     tags = db.Column(db.String(128), comment='公司标签，用多个逗号隔开')
     stack = db.Column(db.String(128), comment='公司技术栈，用多个逗号隔开')
     team_des = db.Column(db.String(255), comment='团队介绍')

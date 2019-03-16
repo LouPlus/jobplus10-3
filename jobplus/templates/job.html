@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% set active = "job" %}
+
+{% from 'macros.html' import render_pagination %}
+
+{% block body %}
+<div class='container'>
+    <div class='row'>
+        {% for job in pagination.items %}
+        <div class="col-sm-6 col-md-4 job-item">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <div class="card-top">
+                        <a class="position" href="{{ job.url }}">{{ job.name }}</a>
+                        <span class="pub-time">{{ job.update_time }}</span>
+                        <span class="salary fr">
+                            {% if job.salary_min %}
+                                {{job.salary_min}}K
+                            {% endif %}
+                            {% if job.salary_min and job.salary_max %}
+                                -
+                            {% endif %}
+                            {% if job.salary_max %}
+                                {{job.salary_max}}K
+                            {% endif %}
+                        </span>
+                        <div class="card-info">
+                            <span>
+                                经验
+                                {% if job.experience_requirement %}
+                                    {{job.experience_requirement}}年/
+                                {% else %}
+                                    不限/
+                                {% endif %}
+                            </span>
+                            <span>
+                                学历
+                                {%if job.degree_requirement %}
+                                    {{job.degree_requirement}}/
+                                {% else %}
+                                    不限/
+                                {% endif %}
+                            </span>
+                            <span>
+                                {% if job.is_fulltime %}
+                                    全职
+                                {% else %}
+                                    兼职
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="labels">
+                            {% for tag in job.tag_list %}
+                            <span class="badge badge-success">{{tag}}</span>
+                            {%endfor%}
+                        </div>
+                    </div>
+                    <div class="card-btm">
+                        <a href="#" class="fl">
+                            <img src="../static/imgs/tx.jpg" class="cp-logo"  width="40" height="40" alt="公司logo">
+                        </a>
+                        <div class="btm-right">
+                            <div class="cp-name">
+                                <a href="{{job.company.url}}">{{job.company.name}}</a>
+                            </div>
+                            <div class="card-info">
+                                <span>移动互联网</span>
+                                <span>/</span>
+                                <span>A轮</span>
+                                <span>/</span>
+                                <span>上海浦东</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {{render_pagination(pagination,'job.index')}}
+</div>
+
+
+{% endblock %}
+

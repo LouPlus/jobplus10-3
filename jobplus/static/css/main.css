@@ -239,6 +239,7 @@ div.job-body-header{
 .citys{
   color: green;
 }
+
 .filter-header {
   margin-bottom: 20px;
 }
@@ -298,3 +299,45 @@ ul.filter-wrapper li a:hover {
   width: 100%;
   margin-bottom: 5px;
 }
+
+div.top_info {
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid #eaeaea;
+  background: #fff;
+}
+
+div.top_info img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-right: 1px solid #eaeaea;
+}
+
+div.company_info {
+  margin-left: 100px;
+  height: 100px;
+}
+
+
+div.company_info h2 {
+  max-height: 33px;
+  padding-right: 2px;
+  line-height: 33px;
+  font-size: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10px 0 0 10px;
+}
+
+div.company_info p {
+    margin: 10px 0 0 10px;
+}
+
+
+
+
+
+

@@ -4,7 +4,7 @@ from sqlalchemy import and_
 
 from jobplus.forms import CompanyProfileForm
 from jobplus.lib.source_data import company_filter_data
-from jobplus.models import User, Company, Job, db, Delivery
+from jobplus.models import Company, Job, db, Delivery
 from jobplus.forms import JobForm
 
 company = Blueprint('company', __name__, url_prefix='/company')
@@ -30,10 +30,6 @@ def profile():
 def index():
     page = request.args.get('page', 1, type=int)
     args_dict = request.args.to_dict()
-    # data = {'trade': '',
-    #         'funding': '',
-    #         'size': '',
-    #         'city': '杭州'}
 
     rule_list = []
     for key in args_dict.keys():
@@ -62,12 +58,14 @@ def index():
 
 @company.route('/<int:company_id>')
 def detail(company_id):
-    return 'company detail: {}'.format(company_id)
+    company = Company.query.filter(Company.id == company_id).first()
+    return render_template('company/detail.html', company=company)
+
 
 @company.route('/<int:company_id>/admin/')
 @login_required
 def admin_index(company_id):
-    if  current_user.id != company_id:
+    if current_user.id != company_id:
         abort(404)
     page = request.args.get('page', 1, type=int)
     pagination = Job.query.filter_by(company_id=company_id).paginate(
@@ -76,6 +74,7 @@ def admin_index(company_id):
         error_out=False
     )
     return render_template('company/admin_index.html',company_id=company_id, pagination=pagination)
+
 
 @company.route('/<int:company_id>/admin/apply/')
 @login_required

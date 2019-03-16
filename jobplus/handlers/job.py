@@ -14,19 +14,21 @@ def index():
         per_page=current_app.config['JOB_PER_PAGE'],
         error_out=False
     )
-    return render_template('job/job.html',pagination=pagination)
+    return render_template('job/job.html', pagination=pagination)
+
 
 @job.route('/<int:job_id>')
 def detail(job_id):
     job = Job.query.get_or_404(job_id)
     return render_template('job/detail.html', job=job)
 
+
 @job.route('/<int:job_id>/apply')
 @login_required
 def apply(job_id):
     job=Job.query.get_or_404(job_id)
     if job.is_current_user_applied: 
-        flash('当前职位已经投递过','warning')
+        flash('当前职位已经投递过', 'warning')
     else:
         delivery = Delivery(
             job_id=job_id,

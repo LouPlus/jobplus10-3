@@ -7,6 +7,14 @@ from jobplus.lib.tool import random_string, random_email
 from jobplus.models import Company, db, User
 
 
+# 需要自行登录一次拉钩后找到Cookie, 替换下面headers中的cookie
+headers = {'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0',
+           'Referer': 'https://www.lagou.com/gongsi/',
+           'Origin': 'https://www.lagou.com',
+           'Cookie': 'WEBTJ-ID=20190226232625-1692a6a05262a1-0a7f40c2a499b9-36657105-1764000-1692a6a0529a01; _ga=GA1.2.1964949034.1551194785; user_trace_token=20190226232625-e10e55f8-39da-11e9-9202-525400f775ce; LGUID=20190226232625-e10e5adb-39da-11e9-9202-525400f775ce; JSESSIONID=ABAAABAAAFCAAEGB0C0046FE1E0C4EA160BA5DF25998CE2; mds_login_authToken="OB02Q1k8/Wo5XrrpGT7q9gFKmcIN9R4vfkIIVPIw8/kW/Ft7K3kI/Cihf8oUjUj1GVGQntvIw2UmpH+Hocgprxeo0dMDpWPUqEwHzs/JaV+WttgiyCOU+ZXxqdP6Y3VHAGW1rDMbUFRvb4vMZlwxNsETqMMZx6WoRuJaJM6MML14rucJXOpldXhUiavxhcCELWDotJ+bmNVwmAvQCptcy5e7czUcjiQC32Lco44BMYXrQ+AIOfEccJKHpj0vJ+ngq/27aqj1hWq8tEPFFjdnxMSfKgAnjbIEAX3F9CIW8BSiMHYmPBt7FDDY0CCVFICHr2dp5gQVGvhfbqg7VzvNsw=="; _putrc=59BF92213C546537; login=true; unick=%E8%92%8B%E9%87%91%E6%9D%B0; X_MIDDLE_TOKEN=577e28c48c14b736cab93a7a8264fb5d; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1551194785,1551947676; index_location_city=%E6%9D%AD%E5%B7%9E; LGSID=20190316100141-71034bae-478f-11e9-b1ee-525400f775ce; SEARCH_ID=303a8536d30949a59105648f178114a6; _gat=1; LG_LOGIN_USER_ID=48b6d3d7c4f64f04c54ff40bcf3dc91bdce8b75643c3a3aa; showExpriedIndex=1; showExpriedCompanyHome=1; showExpriedMyPublish=1; hasDeliver=0; gate_login_token=04f20110afe255f25e1b03a7ab17eaed45dfe919fd2bace6; TG-TRACK-CODE=index_bannerad; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1552705488; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%221692a6a2c6e43c-096227507d63a4-36657105-1764000-1692a6a2c6f6dc%22%2C%22%24device_id%22%3A%221692a6a2c6e43c-096227507d63a4-36657105-1764000-1692a6a2c6f6dc%22%2C%22props%22%3A%7B%22%24latest_traffic_source_type%22%3A%22%E7%9B%B4%E6%8E%A5%E6%B5%81%E9%87%8F%22%2C%22%24latest_referrer%22%3A%22%22%2C%22%24latest_referrer_host%22%3A%22%22%2C%22%24latest_search_keyword%22%3A%22%E6%9C%AA%E5%8F%96%E5%88%B0%E5%80%BC_%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80%22%2C%22%24os%22%3A%22MacOS%22%2C%22%24browser%22%3A%22Chrome%22%2C%22%24browser_version%22%3A%2272.0.3626.121%22%7D%7D; LGRID=20190316110449-42d6cf9f-4798-11e9-97d7-5254005c3644'
+            }
+
+
 def create_app(config):
     app = Flask(__name__)
     app.config.from_object(configs.get(config))
@@ -16,12 +24,6 @@ def create_app(config):
 
 
 def get_company_data(page):
-    # 需要自行登录一次拉钩后找到Cookie, 替换下面headers中的cookie
-    headers = {'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0',
-               'Referer': 'https://www.lagou.com/gongsi/',
-               'Origin': 'https://www.lagou.com',
-               
-               'Cookie': 'JSESSIONID=ABAAABAAAFCAAEGADA24BD2E9A3A2350788DF553B3F8B19; _ga=GA1.2.1445026406.1552479981; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1552479982; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1552484404; user_trace_token=20190313202620-351b9c50-458b-11e9-86eb-525400f775ce; LGRID=20190313214002-80e5ad82-4595-11e9-94e6-5254005c3644; LGUID=20190313202620-351b9f90-458b-11e9-86eb-525400f775ce; _gid=GA1.2.1234951713.1552479982; index_location_city=%E5%85%A8%E5%9B%BD; TG-TRACK-CODE=index_company; _gat=1; LGSID=20190313214002-80e5aa04-4595-11e9-94e6-5254005c3644; PRE_UTM=; PRE_HOST=; PRE_SITE=https%3A%2F%2Fwww.lagou.com%2F; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2Fgongsi%2F'}
     payload = {'first': 'false', 'pn': page, 'sortField': 0, 'havemark': 0}
 
     url = 'https://www.lagou.com/gongsi/0-0-0-0.json'
@@ -85,7 +87,6 @@ if __name__ == '__main__':
             print(company)
             insert_company(company)
         time.sleep(1)
-
 
 
 
